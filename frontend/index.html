@@ -4,13 +4,79 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>OptiMail</title>
-    <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script> 
-    <script src="script.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>    
+    <script src="script.js" defer></script>
 </head>
 <body>
-    <nav class="flex items-center justify-between p-4 bg-blue-600 text-white">
-        <h1>OptiMail</h1>
+    <nav class="p-4 bg-blue-600 text-white shadow-md">
+        <div class="max-w-7xl  mx-auto">
+            <h1 class="text-2xl font-bold">OptiMail</h1>
+            <p class="text-sm font-thin">Sua solução para gerenciamento de e-mails!</p>
+        </div>
     </nav>
-    
+
+    <main class="max-w-7xl mx-auto mt-10 p-2">
+        <div class="bg-white rounded-lg shadow px-6 py-3">
+            <div class="bg-blue-600 flex items-center justify-between">
+                <h2 class="text-2xl font-semibold px-6 py-3 text-white">Emails enviados recentemente</h2>
+                <button class="px-3 py-2 bg-white text-blue-600 rounded-md shadow hover:bg-blue-100 transition text-lg mr-2" onclick="openModal()">Enviar email</button>
+            </div>
+            
+            <table class="min-w-full border border-gray-200 rounded-lg overflow-hidden">
+                <thead class="bg-blue-100">
+                    <tr>
+                        <th class="py-2 px-4 text-left font-medium text-gray-700">Assunto</th>
+                        <th class="py-2 px-4 text-left font-medium text-gray-700">Data de envio</th>
+                        <th class="py-2 px-4 text-left font-medium text-gray-700">Teor</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr class="border-t">
+                        <td class="py-2 px-4">texto genérico</td>
+                        <td class="py-2 px-4">01/01/2023</td>
+                        <td class="py-2 px-4">Improdutivo</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </main>
+
+    <div id="emailModal" tabindex="-1" aria-hidden="true" class="hidden fixed inset-0 z-50 flex items-center justify-center w-full h-full">
+        <div class="absolute inset-0 bg-black opacity-30 z-0"></div>
+        <div class="bg-white rounded-2xl shadow-2xl p-8 w-full max-w-lg relative z-10">
+            <div class="flex justify-between items-center mb-6">
+            <h2 class="text-2xl font-extrabold text-blue-700">Enviar Email</h2>
+            <button class="text-gray-400 hover:text-gray-700 text-3xl font-bold" onclick="closeModal()" aria-label="Fechar">&times;</button>
+            </div>
+            <form id="formEmail">
+            <div class="mb-6">
+                <label class="block text-gray-800 font-semibold mb-2">Como deseja que avaliemos o arquivo?</label>
+                <div class="flex gap-6 mb-4">
+                <label class="flex items-center cursor-pointer">
+                    <input type="radio" name="attachmentType" value="file" checked class="mr-2 accent-blue-600" onclick="clicarEnviarArquivos()">
+                    <span class="text-gray-700">Arquivo TXT ou PDF</span>
+                </label>
+                <label class="flex items-center cursor-pointer">
+                    <input type="radio" name="attachmentType" value="form" class="mr-2 accent-blue-600" onclick="clicarEnviarTexto()">
+                    <span class="text-gray-700">Corpo do email</span>
+                </label>
+                </div>
+                <div id="fileAttachment" class="mt-2">
+                    <label class="block text-gray-700 font-medium mb-1" for="attachment">Anexar arquivo (PDF ou TXT)</label>
+                    <input type="file" id="attachment" name="attachment" accept=".pdf,.txt" class="block w-full border border-gray-300 rounded-lg px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500">
+                </div>
+                <div id="formAttachment" class="mt-2 hidden">
+                    <label class="block text-gray-700 font-medium mb-1" for="attachmentText">Conteúdo do email</label>
+                    <textarea id="attachmentText" name="attachmentText" class="w-full border border-gray-300 rounded-lg px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500" rows="5"></textarea>
+                </div>
+            </div>
+            <div class="flex justify-end gap-2 mt-6">
+                <button type="button" class="px-5 py-2 bg-gray-200 text-gray-700 rounded-lg hover:bg-gray-300 transition" onclick="closeModal()">Cancelar</button>
+                <button type="submit" class="px-5 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition font-semibold">Enviar</button>
+            </div>
+            </form>
+        </div>
+    </div>
+
 </body>
 </html>
