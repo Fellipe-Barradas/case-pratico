@@ -1,4 +1,4 @@
-from sqlmodel import Session
+from sqlmodel import Session, select
 from models import TipoEmail
 
 
@@ -11,6 +11,10 @@ class TipoEmailRepository:
         self.session.commit()
         self.session.refresh(tipo_email)
         return tipo_email
+
+    def get_by_tipo(self, tipo: str):
+        statement = select(TipoEmail).where(TipoEmail.nome == tipo)
+        return self.session.exec(statement).first()
 
     def read(self, tipo_email_id: int):
         return self.session.get(TipoEmail, tipo_email_id)
