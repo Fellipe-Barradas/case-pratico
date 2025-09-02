@@ -1,0 +1,5 @@
+fastapi
+sqlmodel
+PyPDF2
+python-multipart
+uvicorn
