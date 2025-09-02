@@ -177,4 +177,51 @@ document.addEventListener('DOMContentLoaded', async () => {
         currentPage = 1;
         fetchEmails();
     });
+
+    // Carrossel tutorial
+    let carouselIndex = 0;
+    const slides = document.querySelectorAll('#carouselSlides .carousel-slide');
+    const nextBtn = document.getElementById('carouselNext');
+    const prevBtn = document.getElementById('carouselPrev');
+    const closeBtn = document.getElementById('closeCarousel');
+    const carousel = document.getElementById('tutorialCarousel');
+
+    function showSlide(idx) {
+        slides.forEach((slide, i) => {
+            slide.classList.toggle('hidden', i !== idx);
+        });
+        if (idx === 0) {
+            prevBtn.disabled = true;
+            prevBtn.style.display = 'none';
+        } else {
+            prevBtn.disabled = false;
+            prevBtn.style.display = 'block';
+        }
+        if (idx === slides.length - 1){
+             nextBtn.disabled = true;
+             nextBtn.style.display = 'none';
+        } else {
+            nextBtn.disabled = false;
+            nextBtn.style.display = 'block';
+        }
+       
+    }
+    if (carousel) {
+        showSlide(carouselIndex);
+        nextBtn.addEventListener('click', () => {
+            if (carouselIndex < slides.length - 1) {
+                carouselIndex++;
+                showSlide(carouselIndex);
+            }
+        });
+        prevBtn.addEventListener('click', () => {
+            if (carouselIndex > 0) {
+                carouselIndex--;
+                showSlide(carouselIndex);
+            }
+        });
+        closeBtn.addEventListener('click', () => {
+            carousel.classList.add('hidden');
+        });
+    }
 });
