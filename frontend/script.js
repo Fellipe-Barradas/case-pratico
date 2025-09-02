@@ -79,7 +79,7 @@ function renderTiposEmailFilter() {
 }
 
 function deletarEmail(id){
-    fetch(`http://localhost:8000/delete-email?id=${id}`, {
+    fetch(`http://localhost:8000/delete-email?email_id=${id}`, {
         method: 'DELETE'
     })
     .then(response => {

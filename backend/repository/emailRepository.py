@@ -36,6 +36,8 @@ class EmailRepository:
         self.session.commit()
         return email
 
-    def delete(self, email: Email):
-        self.session.delete(email)
-        self.session.commit()
+    def delete(self, id: int):
+        email = self.session.get(Email, id)
+        if email:
+            self.session.delete(email)
+            self.session.commit()
