@@ -21,23 +21,40 @@
                 <h2 class="text-2xl font-semibold px-6 py-3 text-white">Emails enviados recentemente</h2>
                 <button class="px-3 py-2 bg-white text-blue-600 rounded-md shadow hover:bg-blue-100 transition text-lg mr-2" onclick="openModal()">Enviar email</button>
             </div>
-            
+            <div class="flex items-center gap-4 my-4">
+                <label for="tipoEmailFilter" class="text-gray-700 font-medium">Filtrar por tipo:</label>
+                <select id="tipoEmailFilter" class="border border-gray-300 rounded px-2 py-1">
+                    <option value="">Todos</option>
+                </select>
+                <label for="pageSizeSelect" class="text-gray-700 font-medium ml-4">Emails por página:</label>
+                <select id="pageSizeSelect" class="border border-gray-300 rounded px-2 py-1">
+                    <option value="5">5</option>
+                    <option value="10" selected>10</option>
+                    <option value="20">20</option>
+                    <option value="50">50</option>
+                </select>
+            </div>
             <table class="min-w-full border border-gray-200 rounded-lg overflow-hidden">
                 <thead class="bg-blue-100">
                     <tr>
                         <th class="py-2 px-4 text-left font-medium text-gray-700">Assunto</th>
                         <th class="py-2 px-4 text-left font-medium text-gray-700">Data de envio</th>
                         <th class="py-2 px-4 text-left font-medium text-gray-700">Teor</th>
+                        <th class="py-2 px-4 text-left font-medium text-gray-700">Resposta</th>
                     </tr>
                 </thead>
                 <tbody>
-                    <tr class="border-t">
-                        <td class="py-2 px-4">texto genérico</td>
-                        <td class="py-2 px-4">01/01/2023</td>
-                        <td class="py-2 px-4">Improdutivo</td>
-                    </tr>
+                    <!-- Conteúdo dinâmico -->
                 </tbody>
             </table>
+            <div class="flex justify-between items-center mt-4">
+                <button id="prevPage" class="px-3 py-1 bg-gray-200 rounded hover:bg-gray-300">Anterior</button>
+                <div>
+                    <span id="paginationInfo" class="text-gray-700"></span>
+                    <span id="totalPagesInfo" class="text-gray-500 ml-2"></span>
+                    </div>
+                <button id="nextPage" class="px-3 py-1 bg-gray-200 rounded hover:bg-gray-300">Próxima</button>
+            </div>
         </div>
     </main>
 

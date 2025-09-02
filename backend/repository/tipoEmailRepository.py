@@ -16,8 +16,9 @@ class TipoEmailRepository:
         statement = select(TipoEmail).where(TipoEmail.nome == tipo)
         return self.session.exec(statement).first()
 
-    def read(self, tipo_email_id: int):
-        return self.session.get(TipoEmail, tipo_email_id)
+    def get_all(self):
+        statement = select(TipoEmail)
+        return self.session.exec(statement).all()
 
     def update(self, tipo_email: TipoEmail):
         self.session.merge(tipo_email)
