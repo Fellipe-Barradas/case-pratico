@@ -78,6 +78,19 @@ function renderTiposEmailFilter() {
     select.value = currentTipoEmailId;
 }
 
+function deletarEmail(id){
+    fetch(`http://localhost:8000/delete-email?id=${id}`, {
+        method: 'DELETE'
+    })
+    .then(response => {
+        if (!response.ok) throw new Error('Erro ao deletar email');
+        fetchEmails();
+    })
+    .catch(err => {
+        console.error(err);
+    });
+}
+
 // Renderiza emails na tabela
 function renderEmails(emails) {
     const tbody = document.querySelector('table tbody');
@@ -96,6 +109,11 @@ function renderEmails(emails) {
             <td class="py-2 px-4">
             ${email.resposta || ''}
             </td>
+            <td class="py-2 px-4">
+            <button class="text-red-600 hover:text-red-800" onclick="deletarEmail(${email.id})" title="Deletar" style="cursor:pointer;">
+            Deletar
+            </button>
+            </td>
         `;
         tbody.appendChild(tr);
     });
@@ -105,24 +123,27 @@ function renderEmails(emails) {
 async function enviarEmail(event) {
     event.preventDefault();
     const tipo = document.querySelector('input[name="attachmentType"]:checked').value;
-    let emailText = '';
+    const formData = new FormData();
     if (tipo === 'file') {
         const fileInput = document.getElementById('attachment');
         if (fileInput.files.length === 0) {
             alert('Selecione um arquivo!');
             return;
         }
-        const file = fileInput.files[0];
-        emailText = await file.text();
+        formData.append('file', fileInput.files[0]);
     } else {
-        emailText = document.getElementById('attachmentText').value;
+        const emailText = document.getElementById('attachmentText').value;
         if (!emailText.trim()) {
             alert('Digite o conteúdo do email!');
             return;
         }
+        formData.append('email', emailText);
     }
     try {
-        const res = await fetch(`http://localhost:8000/analisar-email?email=${encodeURIComponent(emailText)}`);
+        const res = await fetch(`http://localhost:8000/analisar-email`, {
+            method: 'POST',
+            body: formData
+        });
         if (!res.ok) throw new Error('Erro ao enviar email');
         closeModal();
         fetchEmails();
