@@ -30,7 +30,7 @@ from typing import Optional
 @app.post("/analisar-email")
 async def analisar_email(
     email: Optional[str] = Form(None),
-    file: Optional[UploadFile] = File(None),
+    file: Optional[UploadFile] = None,
     email_repository: EmailRepository = Depends(get_email_repository),
     tipo_email_repository: TipoEmailRepository = Depends(get_tipo_email_repository)
 ):
