@@ -2,7 +2,7 @@
 from fastapi import Depends, FastAPI, File, UploadFile, Form, HTTPException
 from models import Email
 from contextlib import asynccontextmanager
-from config import create_db_and_tables
+from config import create_db_and_tables, create_tipo_email, drop_db_and_tables
 from repository import EmailRepository, TipoEmailRepository
 from fastapi.middleware.cors import CORSMiddleware
 from dependencies import get_email_repository, get_tipo_email_repository
@@ -12,8 +12,9 @@ from datetime import datetime
 
 @asynccontextmanager
 async def lifespan(app: FastAPI):
-    # drop_db_and_tables()  # Drop tables if they exist
+    drop_db_and_tables()
     create_db_and_tables()
+    create_tipo_email()
     yield
 
 app = FastAPI(title="Classificador de Emails", lifespan=lifespan)
@@ -30,7 +31,7 @@ from typing import Optional
 @app.post("/analisar-email")
 async def analisar_email(
     email: Optional[str] = Form(None),
-    file: Optional[UploadFile] = None,
+    file: Optional[UploadFile] = File(None),
     email_repository: EmailRepository = Depends(get_email_repository),
     tipo_email_repository: TipoEmailRepository = Depends(get_tipo_email_repository)
 ):

@@ -26,7 +26,7 @@ let currentTipoEmailId = '';
 let tiposEmail = [];
 
 async function fetchEmails() {
-    let url = `http://localhost:8000/obter-emails?size=${pageSize}&step=${currentPage}`;
+    let url = `https://case-pratico-fvgi.onrender.com/obter-emails?size=${pageSize}&step=${currentPage}`;
     if (currentTipoEmailId) {
         url += `&tipo_email_id=${currentTipoEmailId}`;
     }
@@ -60,7 +60,7 @@ function updatePaginationInfo(count) {
 
 async function fetchTiposEmail() {
     try {
-        const res = await fetch('http://localhost:8000/tipos-email');
+        const res = await fetch('https://case-pratico-fvgi.onrender.com/tipos-email');
         const data = await res.json();
         tiposEmail = data.data;
         renderTiposEmailFilter();
@@ -79,7 +79,7 @@ function renderTiposEmailFilter() {
 }
 
 function deletarEmail(id){
-    fetch(`http://localhost:8000/delete-email?email_id=${id}`, {
+    fetch(`https://case-pratico-fvgi.onrender.com/delete-email?email_id=${id}`, {
         method: 'DELETE'
     })
     .then(response => {
@@ -140,7 +140,7 @@ async function enviarEmail(event) {
         formData.append('email', emailText);
     }
     try {
-        const res = await fetch(`http://localhost:8000/analisar-email`, {
+        const res = await fetch(`https://case-pratico-fvgi.onrender.com/analisar-email`, {
             method: 'POST',
             body: formData
         });

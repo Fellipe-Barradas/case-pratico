@@ -1,4 +1,5 @@
 from sqlmodel import SQLModel, Session, create_engine
+from models import TipoEmail
 from sqlalchemy.orm import sessionmaker
 from fastapi import Depends
 from typing import Generator
@@ -21,7 +22,9 @@ engine = create_engine(database_url, echo=True, pool_size=3, max_overflow=0)
 # Funções síncronas para criar/deletar tabelas
 def create_db_and_tables():
     SQLModel.metadata.create_all(engine)
-        
+
+
+
 def drop_db_and_tables():
     SQLModel.metadata.drop_all(engine)
     
@@ -34,3 +37,16 @@ def get_session() -> Generator[Session, None, None]:
         yield session
     finally:
         session.close()
+        
+def create_tipo_email():
+    session = next(get_session())
+    tipo_email = TipoEmail(nome="produtivo")
+    session.add(tipo_email)
+    session.commit()
+    session.close()
+    
+    session = next(get_session())
+    tipo_email = TipoEmail(nome="improdutivo")
+    session.add(tipo_email)
+    session.commit()
+    session.close()
