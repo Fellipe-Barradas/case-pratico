@@ -3,3 +3,4 @@ sqlmodel
 PyPDF2
 python-multipart
 uvicorn
+psycopg2

@@ -13,7 +13,7 @@ database_password = os.getenv("DATABASE_PASSWORD")
 database_host = os.getenv("DATABASE_HOST")
 database_port = os.getenv("DATABASE_PORT", "5432")  
 
-database_url = f"mysql+pymysql://{database_user}:{database_password}@{database_host}:{database_port}/{database_name}"
+database_url = f"postgresql+psycopg2://{database_user}:{database_password}@{database_host}:{database_port}/{database_name}"
 
 # Criar engine síncronos
 engine = create_engine(database_url, echo=True, pool_size=3, max_overflow=0)
